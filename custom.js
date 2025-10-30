@@ -1,93 +1,33 @@
 /**
- * Modern Gallery System - Custom JavaScript
- * Fixed version with proper initialization
+ * Modern Gallery System - Single Flexible Slider
+ * One function that adapts to data attributes
  */
 
 (function () {
   "use strict";
 
-  // Wait for jQuery to be ready
   if (typeof jQuery === "undefined") {
     console.error("jQuery is required but not loaded");
     return;
   }
 
   jQuery(function ($) {
-    // ============================================================
-    // BASIC IMAGE SLIDER (.c-image-slider-column)
-    // ============================================================
-
-    function initBasicSlider() {
-      $(".c-image-slider-column").each(function () {
-        var $column = $(this);
-
-        // Skip if already initialized
-        if ($column.data("basic-slider-init")) {
-          return;
-        }
-
-        // Wrap modules if not already wrapped
-        if (!$column.find(".c-slider-wrapper").length) {
-          $column.wrapInner('<div class="c-slider-wrapper"></div>');
-        }
-
-        var $wrapper = $column.find(".c-slider-wrapper");
-
-        // Destroy existing slider if any
-        if ($wrapper.hasClass("slick-initialized")) {
-          $wrapper.slick("unslick");
-        }
-
-        // Initialize Slick
-        try {
-          $wrapper.slick({
-            slidesToShow: 1,
-            slidesToScroll: 1,
-            arrows: true,
-            dots: true,
-            infinite: true,
-            autoplay: true,
-            autoplaySpeed: 3000,
-            speed: 600,
-            adaptiveHeight: true,
-            slide: ".et_pb_module",
-            pauseOnHover: true,
-            pauseOnFocus: true,
-            cssEase: "cubic-bezier(0.4, 0, 0.2, 1)",
-            prevArrow:
-              '<button type="button" class="slick-prev" aria-label="Previous"><span>‹</span></button>',
-            nextArrow:
-              '<button type="button" class="slick-next" aria-label="Next"><span>›</span></button>',
-            responsive: [
-              {
-                breakpoint: 980,
-                settings: {
-                  slidesToShow: 1,
-                },
-              },
-            ],
-          });
-
-          $column.data("basic-slider-init", true);
-          console.log("✓ Basic slider initialized");
-        } catch (e) {
-          console.error("Error initializing basic slider:", e);
-        }
-      });
-    }
-
-    // ============================================================
-    // FEATURE GALLERY (.c-feature-image-slider-column)
-    // ============================================================
-
-    function initFeatureGallery() {
+    function initGallery() {
       $(".c-feature-image-slider-column").each(function () {
         var $column = $(this);
 
         // Skip if already initialized
-        if ($column.data("feature-gallery-init")) {
+        if ($column.data("gallery-initialized")) {
           return;
         }
+
+        // READ DATA ATTRIBUTES (with defaults)
+        var showFeature = $column.attr("data-show-feature") !== "false";
+        var showThumbnails = $column.attr("data-show-thumbnails") !== "false";
+        var enableLightbox = $column.attr("data-enable-lightbox") !== "false";
+        var autoplay = $column.attr("data-autoplay") !== "false";
+        var autoplaySpeed =
+          parseInt($column.attr("data-autoplay-speed")) || 3500;
 
         // Extract images
         var imgs = [];
@@ -101,113 +41,116 @@
           }
         });
 
-        if (!imgs.length) {
-          console.warn("No images found in feature gallery");
-          return;
-        }
+        if (!imgs.length) return;
 
         // Generate unique IDs
-        var timestamp = Date.now();
-        var random = Math.floor(Math.random() * 10000);
-        var uid = "cfs_" + timestamp + "_" + random;
-        var featId = uid + "_feat";
+        var uid =
+          "gallery_" + Date.now() + "_" + Math.floor(Math.random() * 9999);
+        var featId = uid + "_feature";
         var thumbId = uid + "_thumb";
 
-        // Build HTML structure
+        // Build wrapper
         var $wrap = $('<div class="c-feature-wrap"></div>');
-        var $feature = $(
-          '<div class="feature-slider" id="' + featId + '"></div>'
-        );
-        var $thumbs = $(
-          '<div class="thumb-slider" id="' + thumbId + '"></div>'
-        );
 
-        // Populate feature slider
-        $.each(imgs, function (i, img) {
-          $feature.append(
-            '<div class="feature-slide">' +
-              '<div class="cfs-overlay-wrap">' +
-              '<img src="' +
-              img.src +
-              '" alt="' +
-              img.alt +
-              '">' +
-              '<div class="cfs-overlay-btn">View All Photos</div>' +
-              "</div>" +
-              "</div>"
+        // BUILD FEATURE SLIDER (if enabled)
+        if (showFeature) {
+          var $feature = $(
+            '<div class="feature-slider" id="' + featId + '"></div>'
           );
-        });
 
-        // Populate thumbnail slider
-        $.each(imgs, function (i, img) {
-          $thumbs.append(
-            '<div class="thumb-item">' +
-              '<div class="thumb">' +
-              '<img src="' +
-              img.src +
-              '" alt="' +
-              img.alt +
-              '">' +
-              "</div>" +
-              "</div>"
+          $.each(imgs, function (i, img) {
+            var overlay = enableLightbox
+              ? '<div class="cfs-overlay-btn">View All Photos</div>'
+              : "";
+            $feature.append(
+              '<div class="feature-slide">' +
+                '<div class="cfs-overlay-wrap">' +
+                '<img src="' +
+                img.src +
+                '" alt="' +
+                img.alt +
+                '">' +
+                overlay +
+                "</div>" +
+                "</div>"
+            );
+          });
+
+          $wrap.append($feature);
+        }
+
+        // BUILD THUMBNAIL SLIDER (if enabled)
+        if (showThumbnails) {
+          var $thumbWrapper = $('<div class="thumb-slider-wrapper"></div>');
+          var $thumbs = $(
+            '<div class="thumb-slider" id="' + thumbId + '"></div>'
           );
-        });
 
-        // Create wrapper
-        var $thumbWrapper = $('<div class="thumb-slider-wrapper"></div>');
-        $thumbWrapper.append($thumbs);
-        $thumbWrapper.append(
-          '<div class="button-wrap">' +
-            '<button class="see-all-btn" type="button">View All Photos</button>' +
-            "</div>"
-        );
+          $.each(imgs, function (i, img) {
+            $thumbs.append(
+              '<div class="thumb-item">' +
+                '<div class="thumb">' +
+                '<img src="' +
+                img.src +
+                '" alt="' +
+                img.alt +
+                '">' +
+                "</div>" +
+                "</div>"
+            );
+          });
 
-        // Add to DOM
-        $wrap.append($feature).append($thumbWrapper);
-        $column.prepend($wrap);
+          $thumbWrapper.append($thumbs);
 
-        // Hide original modules
-        $column.find(".et_pb_module").hide();
-
-        // Small delay to ensure DOM is ready
-        setTimeout(function () {
-          var $featureSlider = $("#" + featId);
-          var $thumbSlider = $("#" + thumbId);
-
-          if (!$featureSlider.length || !$thumbSlider.length) {
-            console.error("Slider elements not found");
-            return;
+          // Add button if lightbox enabled
+          if (enableLightbox) {
+            $thumbWrapper.append(
+              '<div class="button-wrap">' +
+                '<button class="see-all-btn" type="button">View All Photos</button>' +
+                "</div>"
+            );
           }
 
-          try {
-            // Initialize feature slider first
+          $wrap.append($thumbWrapper);
+        }
+
+        // Add to DOM and hide original
+        $column.prepend($wrap);
+        $column.find(".et_pb_module").hide();
+
+        // Initialize sliders after DOM ready
+        setTimeout(function () {
+          // INITIALIZE FEATURE SLIDER
+          if (showFeature) {
+            var $featureSlider = $("#" + featId);
+
             $featureSlider.slick({
               slidesToShow: 1,
               slidesToScroll: 1,
               fade: false,
-              arrows: false,
-              dots: false,
-              autoplay: true,
-              autoplaySpeed: 3500,
+              arrows: !showThumbnails,
+              dots: !showThumbnails,
+              autoplay: autoplay,
+              autoplaySpeed: autoplaySpeed,
               speed: 700,
               adaptiveHeight: false,
               pauseOnHover: true,
               pauseOnFocus: true,
-              asNavFor: "#" + thumbId,
               draggable: true,
               swipe: true,
               touchMove: true,
-              lazyLoad: "ondemand",
+              asNavFor: showThumbnails ? "#" + thumbId : null,
               cssEase: "cubic-bezier(0.4, 0, 0.2, 1)",
             });
+          }
 
-            console.log("✓ Feature slider initialized");
+          // INITIALIZE THUMBNAIL SLIDER
+          if (showThumbnails) {
+            var $thumbSlider = $("#" + thumbId);
 
-            // Initialize thumbnail slider
             $thumbSlider.slick({
               slidesToShow: Math.min(5, imgs.length),
               slidesToScroll: 1,
-              asNavFor: "#" + featId,
               focusOnSelect: true,
               arrows: imgs.length > 5,
               dots: false,
@@ -217,8 +160,7 @@
               draggable: true,
               swipe: true,
               touchMove: true,
-              centerMode: false,
-              cssEase: "cubic-bezier(0.4, 0, 0.2, 1)",
+              asNavFor: showFeature ? "#" + featId : null,
               slide: ".thumb-item",
               prevArrow:
                 '<button type="button" class="slick-prev" aria-label="Previous"><span>‹</span></button>',
@@ -248,42 +190,36 @@
                 },
               ],
             });
+          }
 
-            console.log("✓ Thumbnail slider initialized");
+          // LIGHTBOX FUNCTIONALITY
+          if (enableLightbox) {
+            var opening = false;
 
-            // Lightbox functionality
-            var fancyboxOpening = false;
-
-            function openGallery(e) {
+            function openLightbox(e) {
               if (e) {
                 e.preventDefault();
                 e.stopPropagation();
               }
 
-              // Prevent multiple simultaneous openings
-              if (fancyboxOpening) {
+              if (
+                opening ||
+                (typeof Fancybox !== "undefined" && Fancybox.getInstance())
+              ) {
                 return false;
               }
 
-              // Check if Fancybox is already open
-              if (typeof Fancybox !== "undefined" && Fancybox.getInstance()) {
-                return false;
-              }
-
-              fancyboxOpening = true;
+              opening = true;
 
               var items = $.map(imgs, function (img) {
-                return {
-                  src: img.src,
-                  type: "image",
-                  caption: img.alt,
-                };
+                return { src: img.src, type: "image", caption: img.alt };
               });
 
               // Pause feature slider
-              $featureSlider.slick("slickPause");
+              if (showFeature && autoplay) {
+                $("#" + featId).slick("slickPause");
+              }
 
-              // Open Fancybox
               if (typeof Fancybox !== "undefined") {
                 try {
                   Fancybox.show(items, {
@@ -297,85 +233,66 @@
                     },
                     on: {
                       done: function () {
-                        fancyboxOpening = false;
+                        opening = false;
                       },
                       close: function () {
-                        fancyboxOpening = false;
-                        $featureSlider.slick("slickPlay");
+                        opening = false;
+                        if (showFeature && autoplay) {
+                          $("#" + featId).slick("slickPlay");
+                        }
                       },
                     },
                   });
                 } catch (err) {
                   console.error("Fancybox error:", err);
-                  fancyboxOpening = false;
+                  opening = false;
                 }
               } else if ($.fancybox) {
-                // Fallback for older Fancybox
                 $.fancybox.open(items, {
                   loop: true,
-                  beforeShow: function () {
-                    fancyboxOpening = true;
-                  },
-                  afterShow: function () {
-                    fancyboxOpening = false;
-                  },
                   afterClose: function () {
-                    fancyboxOpening = false;
-                    $featureSlider.slick("slickPlay");
+                    opening = false;
+                    if (showFeature && autoplay) {
+                      $("#" + featId).slick("slickPlay");
+                    }
                   },
                 });
               } else {
-                console.warn("Fancybox not available");
-                fancyboxOpening = false;
+                opening = false;
                 window.open(items[0].src, "_blank");
               }
 
               return false;
             }
 
-            // Bind click events with event delegation
-            $wrap.off("click.fancybox");
-            $wrap.on("click.fancybox", ".cfs-overlay-btn", openGallery);
-            $wrap.on("click.fancybox", ".see-all-btn", openGallery);
-            $wrap.on("click.fancybox", ".feature-slide img", openGallery);
-          } catch (e) {
-            console.error("Error initializing feature gallery sliders:", e);
+            // Bind events
+            $wrap.off("click.lightbox");
+            $wrap.on(
+              "click.lightbox",
+              ".cfs-overlay-btn, .see-all-btn, .feature-slide img, .thumb img",
+              openLightbox
+            );
           }
         }, 100);
 
-        $column.data("feature-gallery-init", true);
+        $column.data("gallery-initialized", true);
       });
     }
 
-    // ============================================================
-    // Initialize Everything
-    // ============================================================
-
-    function initAll() {
-      // Check if Slick is available
+    // Initialize
+    function init() {
       if (typeof $.fn.slick === "undefined") {
-        console.error("Slick Carousel is not loaded");
+        console.error("Slick Carousel not loaded");
         return;
       }
-
-      initBasicSlider();
-      initFeatureGallery();
+      initGallery();
     }
 
-    // Run on ready
-    initAll();
+    init();
+    $(window).on("load", init);
 
-    // Run on window load
-    $(window).on("load", function () {
-      console.log("Window loaded, checking sliders...");
-      initAll();
-    });
-
-    // Divi builder support
     if (typeof window.et_pb_custom !== "undefined") {
-      $(document).on("et_pb_after_init_modules", initAll);
+      $(document).on("et_pb_after_init_modules", init);
     }
-
-    console.log("✓ Modern Gallery System ready");
   });
 })();
