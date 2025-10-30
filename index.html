@@ -2,77 +2,158 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>Slider + Fancybox Demo</title>
+    <title>Modern Slider & Gallery Demo</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- jQuery (required for Slick) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Slick Carousel CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"
+    />
+
+    <!-- Fancybox CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css"
+    />
+
+    <!-- Custom Styles -->
     <link href="styles.css" rel="stylesheet" />
   </head>
   <body>
-    <header class="site-header">
-      <h1>New Slider + Fancybox Demo</h1>
-      <p>Basic slider and feature+thumb gallery examples</p>
-    </header>
-
-    <main class="container">
-      <!-- Basic slider example -->
-      <section class="panel">
-        <h2>Basic Slider (.c-image-slider-column)</h2>
-        <div class="c-image-slider-column">
-          <div class="et_pb_module">
-            <img
-              src="https://picsum.photos/id/1015/1200/800"
-              alt="Mountain lake"
-            />
-          </div>
-          <div class="et_pb_module">
-            <img src="https://picsum.photos/id/1024/1200/800" alt="Sea waves" />
-          </div>
-          <div class="et_pb_module">
-            <img
-              src="https://picsum.photos/id/1039/1200/800"
-              alt="Forest path"
-            />
-          </div>
+    <div class="page-wrapper">
+      <header class="site-header">
+        <div class="header-content">
+          <h1 class="site-title">Modern Gallery System</h1>
+          <p class="site-description">
+            Advanced slider with thumbnail navigation & lightbox
+          </p>
         </div>
-      </section>
+      </header>
 
-      <!-- Feature + thumbnail gallery example -->
-      <section class="panel">
-        <h2>Feature + Thumbs (.c-feature-image-slider-column)</h2>
-        <div class="c-feature-image-slider-column">
-          <div class="et_pb_module">
-            <img src="https://picsum.photos/id/1043/1200/800" alt="Coastline" />
+      <main class="container">
+        <!-- Basic Slider Section 1 -->
+        <section class="panel">
+          <div class="panel-header">
+            <h2>Basic Image Slider #1</h2>
+            <span class="badge">Auto-play Carousel</span>
           </div>
-          <div class="et_pb_module">
-            <img
-              src="https://picsum.photos/id/1056/1200/800"
-              alt="Snowy peak"
-            />
+          <div class="c-image-slider-column">
+            <div class="et_pb_module">
+              <img
+                src="https://picsum.photos/id/1015/1200/800"
+                alt="Mountain lake"
+              />
+            </div>
+            <div class="et_pb_module">
+              <img
+                src="https://picsum.photos/id/1024/1200/800"
+                alt="Sea waves"
+              />
+            </div>
+            <div class="et_pb_module">
+              <img
+                src="https://picsum.photos/id/1039/1200/800"
+                alt="Forest path"
+              />
+            </div>
+            <div class="et_pb_module">
+              <img
+                src="https://picsum.photos/id/1018/1200/800"
+                alt="Autumn leaves"
+              />
+            </div>
           </div>
-          <div class="et_pb_module">
-            <img
-              src="https://picsum.photos/id/1069/1200/800"
-              alt="Desert dunes"
-            />
-          </div>
-          <div class="et_pb_module">
-            <img
-              src="https://picsum.photos/id/1074/1200/800"
-              alt="City night"
-            />
-          </div>
-          <div class="et_pb_module">
-            <img
-              src="https://picsum.photos/id/1084/1200/800"
-              alt="Rolling hills"
-            />
-          </div>
-        </div>
-      </section>
-    </main>
+        </section>
 
-    <footer class="site-footer">
-      <small>Demo for New-slider-fancybox-photo-gallary</small>
-    </footer>
+        <!-- Basic Slider Section 2 -->
+        <section class="panel">
+          <div class="panel-header">
+            <h2>Basic Image Slider #2</h2>
+            <span class="badge">Simple Slides</span>
+          </div>
+          <div class="c-image-slider-column">
+            <div class="et_pb_module">
+              <img src="https://picsum.photos/id/1036/1200/800" alt="Bridge" />
+            </div>
+            <div class="et_pb_module">
+              <img src="https://picsum.photos/id/1044/1200/800" alt="Fog" />
+            </div>
+            <div class="et_pb_module">
+              <img src="https://picsum.photos/id/1053/1200/800" alt="Winter" />
+            </div>
+          </div>
+        </section>
+
+        <!-- Feature Gallery Section -->
+        <section class="panel">
+          <div class="panel-header">
+            <h2>Feature Gallery with Thumbnails</h2>
+            <span class="badge badge-premium">Premium Gallery</span>
+          </div>
+          <div class="c-feature-image-slider-column">
+            <div class="et_pb_module">
+              <img
+                src="https://picsum.photos/id/1043/1200/800"
+                alt="Coastline"
+              />
+            </div>
+            <div class="et_pb_module">
+              <img
+                src="https://picsum.photos/id/1056/1200/800"
+                alt="Snowy peak"
+              />
+            </div>
+            <div class="et_pb_module">
+              <img
+                src="https://picsum.photos/id/1069/1200/800"
+                alt="Desert dunes"
+              />
+            </div>
+            <div class="et_pb_module">
+              <img
+                src="https://picsum.photos/id/1074/1200/800"
+                alt="City night"
+              />
+            </div>
+            <div class="et_pb_module">
+              <img
+                src="https://picsum.photos/id/1084/1200/800"
+                alt="Rolling hills"
+              />
+            </div>
+            <div class="et_pb_module">
+              <img
+                src="https://picsum.photos/id/1003/1200/800"
+                alt="Valley view"
+              />
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer class="site-footer">
+        <p>
+          &copy; 2025 Modern Gallery System. Powered by Slick Carousel &
+          Fancybox.
+        </p>
+      </footer>
+    </div>
+
+    <!-- Slick Carousel JS -->
+    <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+    <!-- Fancybox JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
+
+    <!-- Custom Script -->
+    <script src="custom.js"></script>
   </body>
-  <script src="custom.js"></script>
 </html>
