@@ -843,6 +843,29 @@
   &lt;div&gt;&lt;img src="img2.jpg" /&gt;&lt;/div&gt;
 &lt;/div&gt;</code></pre>
 
+            <p style="margin-bottom: 1rem">
+              <strong>🔄 Dynamic Content Loading:</strong>
+            </p>
+            <div style="background: #1a1f35; padding: 1.5rem; border-radius: 8px; margin-bottom: 1.5rem;">
+              <p style="color: #d1d5db; margin-bottom: 0.75rem; font-size: 0.875rem;">
+                <strong style="color: #8b5cf6;">Problem:</strong> যদি কনটেন্ট slider script load হওয়ার আগেই load হয়, তাহলে slider automatically initialize হবে না।
+              </p>
+              <p style="color: #d1d5db; margin-bottom: 0.75rem; font-size: 0.875rem;">
+                <strong style="color: #8b5cf6;">Solution:</strong> Content load হওয়ার পর manually initialize করুন:
+              </p>
+              <pre style="background: #0a0e1a; padding: 1rem; border-radius: 6px; overflow-x: auto; margin: 0;"><code style="color: #8b5cf6; font-family: 'Courier New', monospace; font-size: 0.8rem;">// AJAX content load হওয়ার পর
+$.ajax({
+  success: function(data) {
+    $('#container').html(data);
+    // Slider initialize করুন
+    FancyBoxSlider.initGallery('#container .c-feature-image-slider-column');
+  }
+});
+
+// অথবা সব existing galleries initialize করুন
+FancyBoxSlider.initAll();</code></pre>
+            </div>
+
             <p style="margin-bottom: 0.5rem"><strong>✅ Benefits:</strong></p>
             <ul
               style="list-style: none; padding-left: 0; margin-bottom: 1.5rem"
@@ -889,6 +912,67 @@
             </ul>
           </div>
         </section>
+        <!-- Dynamic Content Loading Example Section -->
+        <section class="panel" style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);">
+          <div class="panel-header">
+            <h2>🔄 Dynamic Content Loading Example</h2>
+            <span class="badge badge-premium">JS Loaded Content</span>
+          </div>
+          
+          <div style="color: #d1d5db; line-height: 1.8; margin-bottom: 1.5rem;">
+            <p style="margin-bottom: 1rem; font-size: 0.875rem;">
+              এই উদাহরণে দেখানো হয়েছে কিভাবে JavaScript দিয়ে content load করে slider initialize করতে হয়।
+            </p>
+            
+            <div style="background: #1a1f35; padding: 1.5rem; border-radius: 8px; margin-bottom: 1.5rem;">
+              <h3 style="color: #8b5cf6; font-size: 1rem; margin-bottom: 0.75rem;">📋 Step-by-Step Process:</h3>
+              <ol style="padding-left: 1.5rem; color: #d1d5db; font-size: 0.875rem; line-height: 2;">
+                <li>JavaScript দিয়ে HTML content তৈরি করুন</li>
+                <li>Content-এ <code style="color: #8b5cf6;">c-feature-image-slider-column</code> class যোগ করুন</li>
+                <li>Content-কে DOM-এ insert করুন</li>
+                <li><code style="color: #8b5cf6;">FancyBoxSlider.initGallery()</code> call করুন</li>
+              </ol>
+            </div>
+
+            <button 
+              id="load-dynamic-content-btn" 
+              class="see-all-btn" 
+              style="margin-bottom: 1.5rem; cursor: pointer;"
+            >
+              Load Dynamic Content & Initialize Slider
+            </button>
+
+            <!-- Dynamic Content Container -->
+            <div id="dynamic-slider-container" style="min-height: 200px; background: var(--bg-tertiary); border-radius: var(--radius-md); padding: 1rem;">
+              <p style="text-align: center; color: #9ca3af; padding: 2rem; margin: 0;">
+                Click the button above to load dynamic content with slider
+              </p>
+            </div>
+            
+            <div id="dynamic-slider-status" style="margin-top: 1rem; padding: 0.75rem; background: #1a1f35; border-radius: 6px; display: none;">
+              <p style="margin: 0; color: #8b5cf6; font-size: 0.875rem;">
+                <span id="status-text">Loading...</span>
+              </p>
+            </div>
+
+            <div style="background: #1a1f35; padding: 1.5rem; border-radius: 8px; margin-top: 1.5rem;">
+              <h3 style="color: #8b5cf6; font-size: 1rem; margin-bottom: 0.75rem;">💡 Code Example:</h3>
+              <pre style="background: #0a0e1a; padding: 1rem; border-radius: 6px; overflow-x: auto; margin: 0;"><code style="color: #8b5cf6; font-family: 'Courier New', monospace; font-size: 0.8rem;">// 1. Content HTML তৈরি করুন (slider class সহ)
+var html = '&lt;div class="c-feature-image-slider-column"&gt;' +
+           '  &lt;div&gt;&lt;img src="img1.jpg" /&gt;&lt;/div&gt;' +
+           '  &lt;div&gt;&lt;img src="img2.jpg" /&gt;&lt;/div&gt;' +
+           '&lt;/div&gt;';
+
+// 2. DOM-এ insert করুন
+$('#container').html(html);
+
+// 3. Slider initialize করুন
+setTimeout(function() {
+  FancyBoxSlider.initGallery('#container .c-feature-image-slider-column');
+}, 100);</code></pre>
+            </div>
+          </div>
+        </section>
       </main>
 
       <footer class="site-footer">
@@ -901,5 +985,8 @@
 
     <!-- Fancy Box Slider - Standalone (loads all dependencies automatically) -->
     <script src="fancy-box-slider.js"></script>
+    
+    <!-- Dynamic Content Loader Example (আলাদা JS file) -->
+    <script src="dynamic-content.js"></script>
   </body>
 </html>

@@ -265,14 +265,66 @@ Add these lines to your HTML file:
 
 ## 🔧 Advanced: JavaScript API
 
+### Manual Initialization
+
 If you need to manually initialize sliders:
 
 ```javascript
 // Initialize all galleries on the page
 FancyBoxSlider.init();
 
-// Initialize a specific gallery
+// Initialize a specific gallery by selector
 FancyBoxSlider.initGallery('.my-custom-gallery');
+
+// Initialize a specific gallery by jQuery object
+var $myGallery = $('.my-gallery');
+FancyBoxSlider.initGallery($myGallery);
+
+// Initialize all existing galleries (useful for pre-loaded content)
+FancyBoxSlider.initAll();
+```
+
+### Dynamic Content Loading
+
+**Problem:** If content loads before the slider script, the slider won't initialize automatically.
+
+**Solution:** Manually initialize after your content loads:
+
+```javascript
+// Example 1: After AJAX content loads
+$.ajax({
+  url: 'your-content.html',
+  success: function(data) {
+    $('#container').html(data);
+    // Initialize slider for the new content
+    FancyBoxSlider.initGallery('#container .c-feature-image-slider-column');
+  }
+});
+
+// Example 2: After content is inserted
+function loadDynamicContent() {
+  var html = '<div class="c-feature-image-slider-column">...</div>';
+  $('#target').html(html);
+  // Initialize the slider
+  FancyBoxSlider.initGallery('#target .c-feature-image-slider-column');
+}
+
+// Example 3: Using jQuery ready (if content loads before script)
+$(document).ready(function() {
+  // Check if any galleries exist and initialize them
+  if ($('.c-feature-image-slider-column').length > 0) {
+    FancyBoxSlider.initAll();
+  }
+});
+
+// Example 4: After specific event
+$('#loadButton').on('click', function() {
+  loadContent();
+  // Wait a bit for DOM to update, then initialize
+  setTimeout(function() {
+    FancyBoxSlider.initAll();
+  }, 100);
+});
 ```
 
 ---

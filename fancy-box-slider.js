@@ -649,9 +649,43 @@
     init: init,
     initGallery: function (selector) {
       if (typeof window.jQuery !== "undefined") {
-        window.jQuery(selector).each(function () {
-          initGallery(window.jQuery(this));
+        var $ = window.jQuery;
+        // Support both selector string and jQuery object
+        if (typeof selector === "string") {
+          $(selector).each(function () {
+            // Reset initialization flag to allow re-initialization
+            var $el = $(this);
+            $el.removeData("gallery-initialized");
+            initGallery($el);
+          });
+        } else if (selector && selector.length) {
+          // jQuery object
+          selector.each(function () {
+            var $el = $(this);
+            $el.removeData("gallery-initialized");
+            initGallery($el);
+          });
+        } else if (selector && selector.jquery) {
+          // Single jQuery element
+          selector.removeData("gallery-initialized");
+          initGallery(selector);
+        }
+      } else {
+        console.warn("jQuery is not loaded. Cannot initialize gallery.");
+      }
+    },
+    // New method: Initialize all existing galleries (useful for pre-loaded content)
+    initAll: function () {
+      if (typeof window.jQuery !== "undefined") {
+        var $ = window.jQuery;
+        $(".c-feature-image-slider-column").each(function () {
+          var $el = $(this);
+          // Reset initialization flag to allow re-initialization
+          $el.removeData("gallery-initialized");
+          initGallery($el);
         });
+      } else {
+        console.warn("jQuery is not loaded. Cannot initialize galleries.");
       }
     },
   };
