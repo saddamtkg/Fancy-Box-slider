@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fancy Box Slider - Standalone Example</title>
+  
+  <!-- ============================================
+       STEP 1: Copy these files to your website:
+       - fancy-box-slider.js
+       - styles.css (optional)
+       ============================================ -->
+  
+  <!-- ============================================
+       STEP 2: Include CSS (optional)
+       If you skip this, JS will try to load it automatically
+       ============================================ -->
+  <link href="styles.css" rel="stylesheet" />
+</head>
+<body>
+  <div style="max-width: 1200px; margin: 50px auto; padding: 20px;">
+    
+    <h1>Fancy Box Slider Examples</h1>
+    
+    <!-- ============================================
+         EXAMPLE 1: Basic Image Gallery (Default)
+         Shows: Feature slider + Thumbnails + Lightbox
+         ============================================ -->
+    <section style="margin-bottom: 50px;">
+      <h2>Example 1: Full Gallery (Default)</h2>
+      <div class="c-feature-image-slider-column">
+        <div>
+          <img src="https://picsum.photos/id/1015/1200/800" alt="Image 1" />
+        </div>
+        <div>
+          <img src="https://picsum.photos/id/1018/1200/800" alt="Image 2" />
+        </div>
+        <div>
+          <img src="https://picsum.photos/id/1024/1200/800" alt="Image 3" />
+        </div>
+        <div>
+          <img src="https://picsum.photos/id/1025/1200/800" alt="Image 4" />
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================
+         EXAMPLE 2: Feature Slider Only
+         data-show-thumbnails="false" - Hide thumbnails
+         ============================================ -->
+    <section style="margin-bottom: 50px;">
+      <h2>Example 2: Feature Slider Only (No Thumbnails)</h2>
+      <div class="c-feature-image-slider-column" data-show-thumbnails="false">
+        <div>
+          <img src="https://picsum.photos/id/1036/1200/800" alt="Image 1" />
+        </div>
+        <div>
+          <img src="https://picsum.photos/id/1039/1200/800" alt="Image 2" />
+        </div>
+        <div>
+          <img src="https://picsum.photos/id/1040/1200/800" alt="Image 3" />
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================
+         EXAMPLE 3: Thumbnails Only
+         data-show-feature="false" - Hide feature slider
+         ============================================ -->
+    <section style="margin-bottom: 50px;">
+      <h2>Example 3: Thumbnails Only (No Feature Slider)</h2>
+      <div class="c-feature-image-slider-column" data-show-feature="false">
+        <div>
+          <img src="https://picsum.photos/id/1043/1200/800" alt="Image 1" />
+        </div>
+        <div>
+          <img src="https://picsum.photos/id/1044/1200/800" alt="Image 2" />
+        </div>
+        <div>
+          <img src="https://picsum.photos/id/1047/1200/800" alt="Image 3" />
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================
+         EXAMPLE 4: Without Lightbox
+         data-enable-lightbox="false" - Disable popup
+         ============================================ -->
+    <section style="margin-bottom: 50px;">
+      <h2>Example 4: Gallery Without Lightbox</h2>
+      <div class="c-feature-image-slider-column" data-enable-lightbox="false">
+        <div>
+          <img src="https://picsum.photos/id/1053/1200/800" alt="Image 1" />
+        </div>
+        <div>
+          <img src="https://picsum.photos/id/1056/1200/800" alt="Image 2" />
+        </div>
+        <div>
+          <img src="https://picsum.photos/id/1062/1200/800" alt="Image 3" />
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================
+         EXAMPLE 5: Disable Autoplay
+         data-autoplay="false" - Manual navigation only
+         ============================================ -->
+    <section style="margin-bottom: 50px;">
+      <h2>Example 5: Manual Navigation (No Autoplay)</h2>
+      <div class="c-feature-image-slider-column" data-autoplay="false">
+        <div>
+          <img src="https://picsum.photos/id/1069/1200/800" alt="Image 1" />
+        </div>
+        <div>
+          <img src="https://picsum.photos/id/1074/1200/800" alt="Image 2" />
+        </div>
+        <div>
+          <img src="https://picsum.photos/id/1079/1200/800" alt="Image 3" />
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================
+         EXAMPLE 6: Custom Autoplay Speed
+         data-autoplay-speed="5000" - 5 seconds between slides
+         ============================================ -->
+    <section style="margin-bottom: 50px;">
+      <h2>Example 6: Custom Autoplay Speed (5 seconds)</h2>
+      <div class="c-feature-image-slider-column" data-autoplay-speed="5000">
+        <div>
+          <img src="https://picsum.photos/id/1080/1200/800" alt="Image 1" />
+        </div>
+        <div>
+          <img src="https://picsum.photos/id/1081/1200/800" alt="Image 2" />
+        </div>
+        <div>
+          <img src="https://picsum.photos/id/1082/1200/800" alt="Image 3" />
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================
+         EXAMPLE 7: Content Slider (Single Slide)
+         Works with any HTML content, not just images
+         ============================================ -->
+    <section style="margin-bottom: 50px;">
+      <h2>Example 7: Content Slider (Single Slide)</h2>
+      <div class="c-feature-image-slider-column">
+        <div style="padding: 20px; background: #f0f0f0; border-radius: 8px;">
+          <h3>Card 1</h3>
+          <p>This is content slider - works with any HTML structure!</p>
+        </div>
+        <div style="padding: 20px; background: #f0f0f0; border-radius: 8px;">
+          <h3>Card 2</h3>
+          <p>No images required - just add your content!</p>
+        </div>
+        <div style="padding: 20px; background: #f0f0f0; border-radius: 8px;">
+          <h3>Card 3</h3>
+          <p>Perfect for testimonials, features, or any content!</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================
+         EXAMPLE 8: Content Slider (Multiple Slides)
+         data-slides-to-show="3" - Show 3 items at once
+         ============================================ -->
+    <section style="margin-bottom: 50px;">
+      <h2>Example 8: Content Slider (3 Slides at Once)</h2>
+      <div class="c-feature-image-slider-column" data-slides-to-show="3">
+        <div style="padding: 20px; background: #e0e0e0; border-radius: 8px;">
+          <h3>Item 1</h3>
+          <p>Content here...</p>
+        </div>
+        <div style="padding: 20px; background: #e0e0e0; border-radius: 8px;">
+          <h3>Item 2</h3>
+          <p>Content here...</p>
+        </div>
+        <div style="padding: 20px; background: #e0e0e0; border-radius: 8px;">
+          <h3>Item 3</h3>
+          <p>Content here...</p>
+        </div>
+        <div style="padding: 20px; background: #e0e0e0; border-radius: 8px;">
+          <h3>Item 4</h3>
+          <p>Content here...</p>
+        </div>
+        <div style="padding: 20px; background: #e0e0e0; border-radius: 8px;">
+          <h3>Item 5</h3>
+          <p>Content here...</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================
+         EXAMPLE 9: Combined Options
+         Multiple data attributes can be used together
+         ============================================ -->
+    <section style="margin-bottom: 50px;">
+      <h2>Example 9: Combined Options</h2>
+      <div 
+        class="c-feature-image-slider-column" 
+        data-show-thumbnails="false"
+        data-autoplay="false"
+        data-autoplay-speed="6000"
+      >
+        <div>
+          <img src="https://picsum.photos/id/1084/1200/800" alt="Image 1" />
+        </div>
+        <div>
+          <img src="https://picsum.photos/id/200/1200/800" alt="Image 2" />
+        </div>
+        <div>
+          <img src="https://picsum.photos/id/201/1200/800" alt="Image 3" />
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- ============================================
+       STEP 3: Include JavaScript (REQUIRED)
+       This loads jQuery, Slick, and Fancybox automatically
+       ============================================ -->
+  <script src="fancy-box-slider.js"></script>
+</body>
+</html>
+

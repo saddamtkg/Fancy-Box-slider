@@ -28,52 +28,30 @@ Modern Feature Gallery System is a lightweight, responsive image gallery built w
 
 ## Quick Start
 
-### Installation
+### Installation (Standalone - Recommended)
 
-**1. Include Required Libraries**
+**🚀 One Script Loads Everything!**
+
+The slider automatically loads all dependencies (jQuery, Slick, Fancybox) from JavaScript. Just include two files:
 
 ```html
 <head>
-  <!-- Slick Carousel -->
-  <link
-    rel="stylesheet"
-    href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"
-  />
-  <link
-    rel="stylesheet"
-    href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"
-  />
-
-  <!-- Fancybox -->
-  <link
-    rel="stylesheet"
-    href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css"
-  />
-
-  <!-- Custom Styles -->
+  <!-- Custom Styles (optional - can be loaded via JS) -->
   <link rel="stylesheet" href="styles.css" />
 </head>
 
 <body>
   <!-- Your content -->
 
-  <!-- jQuery -->
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-  <!-- Slick Carousel -->
-  <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-
-  <!-- Fancybox -->
-  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
-
-  <!-- Gallery Script -->
-  <script src="custom.js"></script>
+  <!-- Fancy Box Slider - Standalone (loads all dependencies automatically) -->
+  <script src="fancy-box-slider.js"></script>
 </body>
 ```
 
-**2. Add Gallery Markup**
+**2. Add Gallery Markup (Works with ANY HTML Structure!)**
 
 ```html
+<!-- Example 1: Divi Builder structure -->
 <div class="c-feature-image-slider-column">
   <div class="et_pb_module">
     <img src="image1.jpg" alt="Image 1" />
@@ -85,7 +63,34 @@ Modern Feature Gallery System is a lightweight, responsive image gallery built w
     <img src="image3.jpg" alt="Image 3" />
   </div>
 </div>
+
+<!-- Example 2: Simple div structure -->
+<div class="c-feature-image-slider-column">
+  <div><img src="image1.jpg" alt="Image 1" /></div>
+  <div><img src="image2.jpg" alt="Image 2" /></div>
+  <div><img src="image3.jpg" alt="Image 3" /></div>
+</div>
+
+<!-- Example 3: Direct images -->
+<div class="c-feature-image-slider-column">
+  <img src="image1.jpg" alt="Image 1" />
+  <img src="image2.jpg" alt="Image 2" />
+  <img src="image3.jpg" alt="Image 3" />
+</div>
+
+<!-- Example 4: Any nested structure -->
+<div class="c-feature-image-slider-column">
+  <article><img src="image1.jpg" alt="Image 1" /></article>
+  <section><img src="image2.jpg" alt="Image 2" /></section>
+  <div><img src="image3.jpg" alt="Image 3" /></div>
+</div>
 ```
+
+**✨ Key Benefits:**
+- ✅ **Zero Configuration** - Just add the class `c-feature-image-slider-column`
+- ✅ **Works Everywhere** - Compatible with any HTML structure
+- ✅ **Auto-loads Dependencies** - jQuery, Slick, and Fancybox load automatically
+- ✅ **No Conflicts** - Can be used on any website without breaking existing code
 
 ---
 
@@ -182,16 +187,21 @@ Control gallery behavior using HTML5 data attributes:
 
 ---
 
-### JavaScript Settings
+### JavaScript API
 
-Modify default settings in `custom.js`:
+The slider exposes a global API for manual initialization:
 
 ```javascript
-autoplay: true,
-autoplaySpeed: 3500,
-speed: 700,
-slidesToShow: 5
+// Initialize all galleries on the page
+FancyBoxSlider.init();
+
+// Initialize a specific gallery
+FancyBoxSlider.initGallery('.my-custom-gallery');
 ```
+
+### Advanced Configuration
+
+All settings are controlled via HTML data attributes (see Configuration section above). The slider automatically detects and initializes any element with the class `c-feature-image-slider-column`.
 
 ---
 

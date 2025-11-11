@@ -1,5 +1,7 @@
 /* ====================================
    Modern Gallery System - Styles
+   Standalone CSS file for Fancy Box Slider
+   Can be included on any website
    ==================================== */
 
 /* CSS Variables */
@@ -205,6 +207,9 @@ img {
   text-transform: uppercase;
   letter-spacing: 0.05em;
   border: 1px solid rgba(99, 102, 241, 0.2);
+  width: fit-content;
+  position: absolute;
+  top: 20px;
 }
 
 .badge-premium {
@@ -666,4 +671,114 @@ img {
   .see-all-btn {
     display: none !important;
   }
+}
+section.steps {
+  padding: 80px 0;
+}
+.c-container {
+  /* display: flex;
+  gap: 50px; */
+  align-items: center;
+  justify-content: center;
+  font-family: "Courier New", Courier, monospace;
+  line-height: 1.5em;
+}
+.item {
+  background-color: #eb904b;
+  width: 320px;
+  background-color: red;
+  padding: 10px 20px;
+  border-radius: 10px;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+    rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+  position: relative;
+  cursor: pointer;
+  margin: 0 20px;
+}
+.c-container.card-slider ul.slick-dots {
+  bottom: -35px !important;
+}
+.item::after {
+  content: "";
+  position: absolute;
+  top: 8px;
+  left: 0;
+  z-index: 2;
+  height: 80%;
+  box-sizing: border-box;
+  border-style: solid;
+  border-width: 40px 40px 40px 40px;
+  border-color: transparent transparent transparent green;
+  filter: drop-shadow(5px 0px 4px #00000094);
+  transition: filter 0.5s ease-in-out;
+}
+
+.item:nth-child(2) {
+  background-color: #813085;
+}
+
+.item:nth-child(3) {
+  background-color: #119630;
+}
+.item:nth-child(4) {
+  background-color: #f7a823;
+}
+.item:nth-child(5) {
+  background-color: #a409ec;
+}
+.item:nth-child(6) {
+  background-color: #f80a9d;
+}
+
+.layer {
+  background-color: #fff;
+  border: 1px solid #fff;
+  border-radius: inherit;
+  padding: 20px;
+  box-shadow: #00000012 0px 1px 2px, #00000012 0px 2px 4px,
+    #00000012 0px 4px 8px, #00000012 0px 8px 16px, #00000012 0px 16px 32px,
+    #00000012 0px 32px 64px;
+  position: relative;
+  left: 10px;
+  transition: left 0.3s ease-in-out;
+}
+
+h3 {
+  font-weight: 700;
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+}
+h4 {
+  font-weight: 700;
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+}
+p {
+  font-weight: 400;
+  color: #333;
+}
+span {
+  width: 40px;
+  height: 40px;
+  color: #fff;
+  background-color: #333;
+  border-radius: 50%;
+  display: grid;
+  place-content: center;
+  box-shadow: #00000012 0px 1px 2px, #00000012 0px 2px 4px,
+    #00000012 0px 4px 8px, #00000012 0px 8px 16px, #00000012 0px 16px 32px,
+    #00000012 0px 32px 64px;
+  font-size: 14px;
+  position: absolute;
+  right: 5px;
+  bottom: 5px;
+}
+
+.item:hover::after {
+  filter: drop-shadow(5px 0px 4px #0000001a);
+}
+.item:hover .layer {
+  left: 50px;
 }
